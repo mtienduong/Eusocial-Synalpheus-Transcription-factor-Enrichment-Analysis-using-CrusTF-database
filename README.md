@@ -44,10 +44,7 @@ seqtk subseq S.elizabethae_transcriptome_assembly.fasta S.elizabethae_DEGs_seque
     ```
 3. **Run `blastx`**:
     ```bash
-    blastx -query S.elizabethae_transcriptome_assembly.fasta -db pro_db \
-  -out blastx_results_S.elizabethae_transcriptome.txt \
-  -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore" \
-  -evalue 1e-5 -max_target_seqs 1 -num_threads 8
+    blastx -query S.elizabethae_transcriptome_assembly.fasta -db pro_db  -out blastx_results_S.elizabethae_transcriptome.txt  -outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore" -evalue 1e-5 -max_target_seqs 1 -num_threads 8
     ```
     Repeat this step for DEGs file
 
