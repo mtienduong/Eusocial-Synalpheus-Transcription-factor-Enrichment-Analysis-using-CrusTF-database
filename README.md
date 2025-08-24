@@ -2,7 +2,7 @@
 
 ## Transcription Factor Family Analysis in *S. elizabethae*
 
-This project identifies transcription factor (TF) families associated with differentially expressed transcripts in S. elizabethae using sequence matching and BLAST analysis based on CrusTF database, then compare their representation between all expressed transcripts (using the worker transcriptome) and differentially expressed genes in queen transcriptome. The goal is to explore which TF families may be enriched or specifically regulated in eusocial species.
+This project identifies transcription factor (TF) families associated with differentially expressed transcripts in S. elizabethae using sequence matching and BLAST analysis based on CrusTF database, then compare their representation between all expressed transcripts and differentially expressed genes between queen and worker transcriptome. The goal is to explore which TF families may be enriched or specifically regulated in eusocial species.
 
 CrusTF database: https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-017-4305-2
 
