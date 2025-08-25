@@ -1,0 +1,61 @@
+"""
+Annotate best TF BLAST hits with their corresponding TF family - Python code
+
+This script:
+1. Reads BLASTX best-hit results (one TF hit per transcript)
+2. Loads TF family FASTA files from a folder
+3. Matches each TF ID to its family
+4. Writes an annotated table with Transcript ID, TF ID, and TF Family
+"""
+
+from Bio import SeqIO
+import os
+
+#Input: best hits from BLASTX (one hit per transcript)
+best_hits_file = "best_TF_transcriptome_hits.txt"
+
+#Folder containing TF family FASTA files
+tf_family_folder = "CrusTF_TF_Family_database"
+
+#Step 1: Build TF_ID → TF_FAMILY dictionary
+tf_family_dict = {}
+
+for fasta_file in os.listdir(tf_family_folder):
+    if fasta_file.endswith(".fasta") or fasta_file.endswith(".fa"):
+        family_name = os.path.splitext(fasta_file)[0]
+        fasta_path = os.path.join(tf_family_folder, fasta_file)
+
+        for record in SeqIO.parse(fasta_path, "fasta"):
+            tf_id = record.description.strip()  # Use full header for exact match
+            tf_family_dict[tf_id] = family_name
+
+#Step 2: Read best BLASTX hits and match to TF families
+output = []
+missing = 0
+
+with open(best_hits_file) as f:
+    for line in f:
+        if line.startswith("#") or not line.strip():
+            continue  # Skip empty lines or comments
+
+        cols = line.strip().split("\t")
+        transcript_id = cols[0]
+        tf_id = cols[1]
+
+        if tf_id in tf_family_dict:
+            tf_family = tf_family_dict[tf_id]
+            output.append((transcript_id, tf_id, tf_family))
+        else:
+            missing += 1
+
+#Step 3: Write annotated results to output file
+out_file = "S.elizabethae_transcriptome_besthit_TF_family_annotated.tsv"
+with open(out_file, "w") as out_f:
+    out_f.write("Transcript_ID\tTF_ID\tTF_Family\n")
+    for transcript_id, tf_id, tf_family in output:
+        out_f.write(f"{transcript_id}\t{tf_id}\t{tf_family}\n")
+
+#Step 4: Print summary
+print(f"Done. {len(output)} matches written to '{out_file}'.")
+if missing:
+    print(f"{missing} TF_IDs had no matching family and were skipped.")
