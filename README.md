@@ -1,13 +1,16 @@
-# Eusocial Synalpheus Transcription factor Enrichment Analysis using CrusTF database
+# Eusocial *Synalpheus* Transcription factor Enrichment Analysis using CrusTF database
 
 ## Transcription Factor Family Analysis in *S. elizabethae*
 
-This project identifies transcription factor (TF) families associated with differentially expressed transcripts in S. elizabethae using sequence matching and BLAST analysis based on CrusTF database, then compare their representation between all expressed transcripts and differentially expressed genes between queen and worker transcriptome. The goal is to explore which TF families may be enriched or specifically regulated in eusocial species.
+This project aims to identify transcription factor (TF) families associated with differentially expressed transcripts in S. elizabethae by performing sequence matching and BLAST analysis against the CrusTF database. We then compare the representation of these TF families between all expressed transcripts and those that are differentially expressed between queen and worker transcriptomes. The goal is to explore whether specific TF families are enriched or uniquely regulated in a eusocial context.
+
+Prior to this analysis, we conducted an RNA-seq workflow using Galaxy, which included de novo transcriptome assembly and differential expression analysis to identify genes with significant expression differences between queen and worker castes.
 
 CrusTF database: https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-017-4305-2
 
----
+Galaxy Tutorial: https://training.galaxyproject.org/training-material/topics/transcriptomics/tutorials/full-de-novo/tutorial.html
 
+---
 ## Project Summary
 
 - Extracted sequences from the full transcriptome and a list of all DEGs
@@ -50,16 +53,16 @@ seqtk subseq S.elizabethae_transcriptome_assembly.fasta S.elizabethae_DEGs_seque
 
 4.  **Match TFs to Families using Python script**:
     ```bash
-    python3 S.elizabethae_transcriptome_TF_family_matches.py
+    python3 S.elizabethae_transcriptome_TF_family_annotated.py
     ```
     Repeat this step for DEGs file
 
 5. **Run the full analysis on HPC (SLURM)**:
     ```bash
-    sbatch run_tf_family_matcher.sh
+    sbatch S.elizabethae_transcriptome_TF_family_annotated.sh
     ```
     Repeat this step for DEGs file
 
 6. **Compare TF Family Distributions**
-      This comparison step is done in R. Currently not included in the respository.
+    This comparison step is being developed in R and will be updated shortly.
 
