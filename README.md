@@ -1,4 +1,4 @@
-# Synalpheus Transcription factor Enrichment Analysis using CrusTF database
+# Eusocial Synalpheus Transcription factor Enrichment Analysis using CrusTF database
 
 ## Transcription Factor Family Analysis in *S. elizabethae*
 
